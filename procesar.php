@@ -19,7 +19,7 @@ $cero = '';
 
 
         }
-echo strlen('');
+
     echo '</tr>';
 
     for ($primervalor; $primervalor <= $segundovalor; $primervalor++) {
