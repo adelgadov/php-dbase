@@ -7,43 +7,45 @@ $segundovalor = $_POST['fin'];
 
 $inicio = $primervalor;
 
-echo '<table border=1px solid black>';
+    echo '<table border=1px solid black width="100%">';
 
-$Record = dbase_get_record_with_names ($db, $primervalor);
-echo '<th>Contador Propio</th>';
-
-
-foreach ($Record as $key => $value){
-
-
-        echo '<th>'.$key.'</th>';
-
-
-}
-for ($primervalor; $primervalor <= $segundovalor; $primervalor++) {
     $Record = dbase_get_record_with_names ($db, $primervalor);
-    echo '<tr>';
-
-    foreach ($Record as $key => $value){
-            echo '<td>'.$primervalor.'</td>';
-            echo '<td>'.$value.'</td>';
+    echo '<tr><th>Contador Propio</th>';
 
 
-    }
+        foreach ($Record as $key => $value){
+
+            echo '<th>'.$key.'</th>';
+
+
+        }
 
     echo '</tr>';
-}
 
-echo '</table>';
+    for ($primervalor; $primervalor <= $segundovalor; $primervalor++) {
+        $Record = dbase_get_record_with_names ($db, $primervalor);
+        echo '<tr>';
+        echo '<td>'.$primervalor.'</td>';
+        foreach ($Record as $key => $value){
+
+                echo '<td>'.$value.'</td>';
+
+
+        }
+
+        echo '</tr>';
+    }
+
+    echo '</table>';
 
 ?>
-<style type="text/css">
-    }
-    tr:nth-child(odd) { background-color:#D2EAE8; }
+    <style type="text/css">
+        }
+        tr:nth-child(odd) { background-color:#D2EAE8; }
 
-    tr:nth-of-type(odd) { background-color:#FFFFFF; }
+        tr:nth-of-type(odd) { background-color:#FFFFFF; }
 
-    tr:nth-of-type(even) { background-color:#D2EAE8; }
-    td {border: 1px solid ; border-color: black; text-align: center;}
+        tr:nth-of-type(even) { background-color:#D2EAE8; }
+        td {border: 1px solid ; border-color: black; text-align: center;}
 
-</style>
+    </style>
