@@ -6,8 +6,7 @@ $primervalor = $_POST['inicio'];
 $segundovalor = $_POST['fin'];
 
 $inicio = $primervalor;
-$num_reg = dbase_numrecords ($db);
-echo $num_reg;
+
 echo '<table border=1px solid black>';
 
 $Record = dbase_get_record_with_names ($db, $primervalor);
@@ -21,12 +20,12 @@ foreach ($Record as $key => $value){
 
 
 }
-for ($inicio = $primervalor; $inicio <= $segundovalor; $inicio++) {
-    $Record = dbase_get_record_with_names ($db, $inicio);
+for ($primervalor; $primervalor <= $segundovalor; $primervalor++) {
+    $Record = dbase_get_record_with_names ($db, $primervalor);
     echo '<tr>';
 
     foreach ($Record as $key => $value){
-
+            echo '<td>'.$primervalor.'</td>';
             echo '<td>'.$value.'</td>';
 
 
@@ -45,6 +44,6 @@ echo '</table>';
     tr:nth-of-type(odd) { background-color:#FFFFFF; }
 
     tr:nth-of-type(even) { background-color:#D2EAE8; }
-    td {border: 1px solid ; border-color: black}
+    td {border: 1px solid ; border-color: black; text-align: center;}
 
 </style>
