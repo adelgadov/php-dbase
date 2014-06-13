@@ -12,63 +12,57 @@ echo '<table border=2px solid black">';
 
 if ($primervalor < $segundovalor) {
     $Record = dbase_get_record_with_names ($db, $primervalor);
-    echo '<tr><th>Contador Propio</th>';
-
 
     foreach ($Record as $key => $value){
 
+    if ($key = "ACTVCODE") {
         echo '<th>'.$key.'</th>';
 
-
+    }
     }
 
     echo '</tr>';
 
     for ($primervalor; $primervalor <= $segundovalor; $primervalor++) {
         $Record = dbase_get_record_with_names ($db, $primervalor);
-        echo '<tr>';
+        echo '<tr><th>Contador Propio</th>';
         echo '<td>'.$primervalor.'</td>';
         foreach ($Record as $key => $value){
-            if ($value === "        "){
-                echo '<td>.</td>';
-            }
-            else {
+            if ($key = "ACTVCODE") {
+
                 echo '<td>'.$value.'</td>';
-            }
 
 
+}
         }
 
         echo '</tr>';
     }
 } else {
     $Record = dbase_get_record_with_names ($db, $segundovalor);
-    echo '<tr><th>Contador Propio</th>';
+    echo '<tr>';
 
 
     foreach ($Record as $key => $value){
-
+        if ($key == "ACTVCODE") {
         echo '<th>'.$key.'</th>';
 
 
-    }
+    }}
 
     echo '</tr>';
 
     for ($primervalor; $primervalor >= $segundovalor; $primervalor--) {
         $Record = dbase_get_record_with_names ($db, $primervalor);
-        echo '<tr>';
         echo '<td>'.$primervalor.'</td>';
+
         foreach ($Record as $key => $value){
-            if ($value === "        "){
-                echo '<td>.</td>';
-            }
-            else {
+            if ($key == "ACTVCODE") {
                 echo '<td>'.$value.'</td>';
-            }
 
 
-        }
+
+        }}
 
         echo '</tr>';
     }
