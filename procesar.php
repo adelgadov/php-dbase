@@ -15,10 +15,10 @@ if ($primervalor < $segundovalor) {
     echo '<tr><th>Contador Propio</th>';
     foreach ($Record as $key => $value){
 
-        if ($key == "ACTVCODE") {
+
             echo '<th>'.$key.'</th>';
 
-        }
+
     }
 
     echo '</tr>';
@@ -28,10 +28,14 @@ if ($primervalor < $segundovalor) {
 
 
         foreach ($Record as $key => $value){
-            if ($key == "ACTVCODE" && $value == "120") {
+            if ($value == "120") {
                 echo '<td>'.$primervalor.'</td>';
-                echo '<td>'.$value.'</td>';
 
+                    foreach ($Record as $key => $value){
+                        echo '<td>'.$value.'</td>';
+
+
+                }
 
             }
         }
@@ -44,30 +48,37 @@ if ($primervalor < $segundovalor) {
     echo '<tr><th>Contador Propio</th>';
 
     foreach ($Record as $key => $value){
-        if ($key == "ACTVCODE") {
+
             echo '<th>'.$key.'</th>';
 
 
-        }}
+        }
 
     echo '</tr>';
 
     for ($primervalor; $primervalor >= $segundovalor; $primervalor--) {
         $Record = dbase_get_record_with_names ($db, $primervalor);
 
-
+        echo '<tr>';
         foreach ($Record as $key => $value){
-            if ($key == "ACTVCODE" && $value == "120") {
+            if ($value == "120") {
                 echo '<td>'.$primervalor.'</td>';
-                echo '<td>'.$value.'</td>';
+
+                foreach ($Record as $key => $value){
+                    echo '<td>'.$value.'</td>';
 
 
+                }
 
-            }}
+            }
 
-        echo '</tr>';
+            echo '</tr>';
+        }
+
     }
-}
+
+
+    }
 echo '</table>';
 
 ?>
