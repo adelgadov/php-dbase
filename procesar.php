@@ -1,7 +1,11 @@
 <?php
-include "clases/db.php";
-$conectar = new db();
-$db = $conectar -> conectar_db();
+ini_set('max_execution_time', 300);
+$db_ContHist = dbase_open ('Goldmine DB/ContHist.DBF', 0);
+$db_Contact1 = dbase_open ('Goldmine DB/Contact1.DBF', 0);
+$db_Contact2 = dbase_open ('Goldmine DB/Contact2.DBF', 0);
+$i = 1;
+echo $i;
+$num_reg_Contact1 = dbase_numrecords ($db_Contact1);
 
 $primervalor = $_POST['inicio'];
 $segundovalor = $_POST['fin'];
@@ -11,45 +15,58 @@ $segundovalor = $_POST['fin'];
 echo '<table border=2px solid black">';
 
 if ($primervalor < $segundovalor) {
-    $Record = dbase_get_record_with_names ($db, $primervalor);
+    $Record_ContHist = dbase_get_record_with_names ($db_ContHist, $primervalor);
+
     echo '<tr><th>Contador Propio</th>';
-    foreach ($Record as $key => $value){
+    foreach ($Record_ContHist as $Key_ContHist => $Value_ContHist){
 
 
-            echo '<th>'.$key.'</th>';
-
-
+            echo '<th>'.$Key_ContHist.'</th>';
     }
 
     echo '</tr>';
 
     for ($primervalor; $primervalor <= $segundovalor; $primervalor++) {
-        $Record = dbase_get_record_with_names ($db, $primervalor);
+        $Record_ContHist = dbase_get_record_with_names ($db_ContHist, $primervalor);
 
 
-        foreach ($Record as $key => $value){
-            if ($value == "120") {
+        foreach ($Record_ContHist as $Key_ContHist => $Value_ContHist){
+            if ($Value_ContHist == "120") {
                 echo '<td>'.$primervalor.'</td>';
 
-                    foreach ($Record as $key => $value){
-                        echo '<td>'.$value.'</td>';
+                        $contact1 = dbase_open ('Goldmine DB/Contact1.DBF', 0);
+                    foreach ($Record_ContHist as $Key_ContHist => $Value_ContHist){
+                        $i = $num_reg_Contact1;
+                        $Accountno = $Record_ContHist ["ACCOUNTNO"];
+                        echo '<td>'.$Value_ContHist.'</td>';
+
+                    do {
+
+                        $Record_Contact1 = dbase_get_record_with_names ($db_Contact1, $i);
+                        if ($Record_Contact1["ACCOUNTNO"] == $Accountno){
+                            echo "<td>$Accountno</td>";
+                                $i = 1;
+                    }
+
+                    $i--;
+                    }while ($i >= 1 or $Record_Contact1["ACCOUNTNO"] == $Accountno);
 
 
-                }
 
             }
         }
 
         echo '</tr>';
     }
-} else {
-    $Record = dbase_get_record_with_names ($db, $segundovalor);
+}
+}else {
+    $Record_ContHist = dbase_get_record_with_names ($db_ContHist, $segundovalor);
     echo '<tr>';
     echo '<tr><th>Contador Propio</th>';
 
-    foreach ($Record as $key => $value){
+    foreach ($Record_ContHist as $Key_ContHist => $Value_ContHist){
 
-            echo '<th>'.$key.'</th>';
+            echo '<th>'.$Key_ContHist.'</th>';
 
 
         }
@@ -57,15 +74,15 @@ if ($primervalor < $segundovalor) {
     echo '</tr>';
 
     for ($primervalor; $primervalor >= $segundovalor; $primervalor--) {
-        $Record = dbase_get_record_with_names ($db, $primervalor);
+        $Record_ContHist = dbase_get_record_with_names ($db_ContHist, $primervalor);
 
         echo '<tr>';
-        foreach ($Record as $key => $value){
-            if ($value == "120") {
+        foreach ($Record_ContHist as $Key_ContHist => $Value_ContHist){
+            if ($Value_ContHist == "120") {
                 echo '<td>'.$primervalor.'</td>';
 
-                foreach ($Record as $key => $value){
-                    echo '<td>'.$value.'</td>';
+                foreach ($Record_ContHist as $Key_ContHist => $Value_ContHist){
+                    echo '<td>'.$Value_ContHist.'</td>';
 
 
                 }
@@ -80,7 +97,8 @@ if ($primervalor < $segundovalor) {
 
     }
 echo '</table>';
-
+echo $Record_Contact1["ACCOUNTNO"];
+var_dump($Record_Contact1);
 ?>
 <style type="text/css">
     table {border-collapse: collapse;}
