@@ -4,7 +4,7 @@ $db_ContHist = dbase_open ('Goldmine DB/ContHist.DBF', 0);
 $db_Contact1 = dbase_open ('Goldmine DB/Contact1.DBF', 0);
 $db_Contact2 = dbase_open ('Goldmine DB/Contact2.DBF', 0);
 $i = 1;
-echo $i;
+
 $num_reg_Contact1 = dbase_numrecords ($db_Contact1);
 
 $primervalor = $_POST['inicio'];
@@ -20,9 +20,9 @@ if ($primervalor < $segundovalor) {
     echo '<tr><th>Contador Propio</th>';
     foreach ($Record_ContHist as $Key_ContHist => $Value_ContHist){
 
-
+        if ($Key_ContHist == 'ACTVCODE' or $Key_ContHist == 'ACCOUNTNO'){
             echo '<th>'.$Key_ContHist.'</th>';
-    }
+    }}
 
     echo '</tr>';
 
@@ -33,23 +33,10 @@ if ($primervalor < $segundovalor) {
         foreach ($Record_ContHist as $Key_ContHist => $Value_ContHist){
             if ($Value_ContHist == "120") {
                 echo '<td>'.$primervalor.'</td>';
+                $Accountno_ContHist = $Record_ContHist ["ACCOUNTNO"];
 
-                        $contact1 = dbase_open ('Goldmine DB/Contact1.DBF', 0);
-                    foreach ($Record_ContHist as $Key_ContHist => $Value_ContHist){
-                        $i = $num_reg_Contact1;
-                        $Accountno = $Record_ContHist ["ACCOUNTNO"];
+                         echo '<td>'.$Accountno_ContHist.'</td>';
                         echo '<td>'.$Value_ContHist.'</td>';
-
-                    do {
-
-                        $Record_Contact1 = dbase_get_record_with_names ($db_Contact1, $i);
-                        if ($Record_Contact1["ACCOUNTNO"] == $Accountno){
-                            echo "<td>$Accountno</td>";
-                                $i = 1;
-                    }
-
-                    $i--;
-                    }while ($i >= 1 or $Record_Contact1["ACCOUNTNO"] == $Accountno);
 
 
 
@@ -58,7 +45,7 @@ if ($primervalor < $segundovalor) {
 
         echo '</tr>';
     }
-}
+
 }else {
     $Record_ContHist = dbase_get_record_with_names ($db_ContHist, $segundovalor);
     echo '<tr>';
@@ -97,8 +84,8 @@ if ($primervalor < $segundovalor) {
 
     }
 echo '</table>';
-echo $Record_Contact1["ACCOUNTNO"];
-var_dump($Record_Contact1);
+
+
 ?>
 <style type="text/css">
     table {border-collapse: collapse;}
