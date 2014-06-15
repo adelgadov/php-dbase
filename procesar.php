@@ -1,6 +1,6 @@
 <?php
 
-ini_set('max_execution_time', 300);
+ini_set('max_execution_time', 1000000);
 $db_ContHist = dbase_open ('Goldmine DB/ContHist.DBF', 0);
 $db_Contact1 = dbase_open ('Goldmine DB/Contact1.DBF', 0);
 $db_Contact2 = dbase_open ('Goldmine DB/Contact2.DBF', 0);
@@ -54,7 +54,7 @@ for ($primervalor; $primervalor <= $segundovalor; $primervalor++) {
 
 
 echo '</table></td>';
-
+dbase_close($db_ContHist);
 //CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1
 
 echo '<td><table border=2px solid black>';
@@ -84,7 +84,7 @@ for ($i = 0; $i <= count($accountno); $i++) {
     }
 }
 echo '</table></td>';
-
+dbase_close($db_Contact1);
 //CONTACT2 CONTACT2 CONTACT2 CONTACT2 CONTACT2 CONTACT2 CONTACT2 CONTACT2 CONTACT2 CONTACT2
 
 echo '<td><table border=2px solid black>';
@@ -115,7 +115,7 @@ for ($i = 0; $i <= count($accountno); $i++) {
 }
 echo '</table></td></table>';
 
-
+dbase_close($db_Contact2);
 
 print_r($accountno);
 ?>
