@@ -92,7 +92,7 @@ $Record_Contact2 = dbase_get_record_with_names ($db_Contact2, $num_reg_Contact2)
 
 foreach ($Record_Contact2 as $Key_Contact2 => $Value_Contact2){
 
-    if ($Key_Contact2 == 'UPESTADO' or $Key_Contact2 == 'ACCOUNTNO'){
+    if ($Key_Contact2 == 'PREVRESULT' or $Key_Contact2 == 'ACCOUNTNO'){
         echo '<th>'.$Key_Contact2.'</th>';
     }
 }
@@ -106,7 +106,7 @@ for ($i = 0; $i <= count($accountno); $i++) {
             if ($Value_Contact2 === $accountno[$i]) {
 
                 echo '<td>'.$Value_Contact2.'</td>';
-                echo '<td>'.$Record_Contact2 ["UPESTADO"].'</td>';
+                echo '<td>'.$Record_Contact2 ["PREVRESULT"].'</td>';
 
             }echo '</tr>';
         }
