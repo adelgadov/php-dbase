@@ -1,3 +1,4 @@
+
 <html>
 
     <head>
@@ -10,7 +11,7 @@
                 <td><input type="text" name="inicio"></td>
                 <td>a</td>
                 <td><input type="text" name="fin"></td>
-                <td>(Máx.<?php $db = dbase_open ('Goldmine DB/Contact2.DBF', 0); $num_reg = dbase_numrecords ($db); echo $num_reg; ?>)</td>
+                <td>(Máx.<?php $db = dbase_open ('Goldmine DB/ContHist.DBF', 0); $num_reg = dbase_numrecords ($db); echo $num_reg; ?>)</td>
                 <td><input type="submit" value="Enviar"></td>
             </tr>
 
