@@ -94,7 +94,7 @@ $segundovalor = $_POST['fin'];
 //CONTACT2 CONTACT2 CONTACT2 CONTACT2 CONTACT2 CONTACT2 CONTACT2 CONTACT2 CONTACT2 CONTACT2
 
             ?><td style="vertical-align: top; border-collapse: collapse; border-spacing: 0px; padding: 0px">
-                <table border=2px solid black style="vertical-align: middle; text-align: center;"><?php
+                <table border=2px solid black><?php
                     $Record_Contact2 = dbase_get_record_with_names ($db_Contact2, $num_reg_Contact2);
 
                     ?> <th> PREVRESULT </th><?php
