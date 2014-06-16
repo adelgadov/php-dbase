@@ -6,6 +6,7 @@ $db_Contact1 = dbase_open ('Goldmine DB/Contact1.DBF', 0);
 $db_Contact2 = dbase_open ('Goldmine DB/Contact2.DBF', 0);
 error_reporting(0);
 $accountno = array();
+$array_accountno = array();
 $finalizar_Contact1 = array();
 $finalizar_Contact2 = array();
 
@@ -22,29 +23,34 @@ $segundovalor = $_POST['fin'];
             <td style="vertical-align: top; border-collapse: collapse; border-spacing: 0; padding: 0">
                 <table border=2px solid black><?php
 
-                    $Record_ContHist = dbase_get_record_with_names ($db_ContHist, $primervalor);
+
                     ?><tr><th>Contador Propio</th><?php
 
                             ?><th>ACCOUNTNO</th><?php
                             ?><th>ACTVCODE</th><?php
+                            ?><th>ONDATE</th><?php
 
                             ?></tr><?php
 
-                            for ($primervalor; $primervalor <= $segundovalor; $primervalor++) {
-                                $Record_ContHist = dbase_get_record_with_names ($db_ContHist, $primervalor);
+                            for ($i, $num_reg_ContHist = dbase_numrecords ($db_ContHist); $i <= $num_reg_ContHist; $i++) {
+                                $Record_ContHist = dbase_get_record_with_names ($db_ContHist, $i);
 
 
-
+                            if ($Record_ContHist["ONDATE"] >= $primervalor && $Record_ContHist ["ONDATE"] <= $segundovalor) {
                                     if ($Record_ContHist["ACTVCODE"] == "120") {
                                         ?><td> <?php echo $primervalor ?></td>
 
                                     <?php
                                         $Accountno_ContHist = $Record_ContHist ["ACCOUNTNO"];
-                                        array_push($accountno, $Record_ContHist ["ACCOUNTNO"]);
+                                        array_push($array_accountno, $Record_ContHist ["ACCOUNTNO"]);
+                                        explode("-",$Record_ContHist["ONDATE"]);
 
                                     ?><td><?php echo $Accountno_ContHist ?></td>
                                     <?php
                                     ?><td><?php echo $Record_ContHist["ACTVCODE"] ?></td>
+                                    <td><?php echo $Record_ContHist["ONDATE"][6].$Record_ContHist["ONDATE"][7]."/".$Record_ContHist["ONDATE"][4].$Record_ContHist["ONDATE"][5]."/".
+                                        $Record_ContHist["ONDATE"][0].$Record_ContHist["ONDATE"][1].$Record_ContHist["ONDATE"][2].$Record_ContHist["ONDATE"][3] ?></td>
+
 
                                     <?php
                                     }
@@ -53,12 +59,12 @@ $segundovalor = $_POST['fin'];
 
 
                             }
-
+                            }
 
                 ?></table>
             </td><?php
                     dbase_close($db_ContHist);
-
+$accountno = array_unique($array_accountno, $SORT_STRING = SORT_REGULAR);
 //CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1
 
             ?><td style="vertical-align: top; border-collapse: collapse; border-spacing: 0px; padding: 0px">
@@ -76,7 +82,7 @@ $segundovalor = $_POST['fin'];
                                 if ($Record_Contact1["ACCOUNTNO"] === $accountno[$i]) {
 
 
-                                    ?><td><?php echo $Record_Contact1 ["CONTACT"]?></td><?php
+                                    ?><td><?php echo str_replace("                                                                 "," ", ".", $Record_Contact1 ["CONTACT"])?></td><?php
                                     array_push($finalizar_Contact1, $Record_Contact1 ["ACCOUNTNO"]);
                                 }
                             ?></tr><?php
