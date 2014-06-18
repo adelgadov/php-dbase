@@ -5,18 +5,24 @@ $db_ContHist = dbase_open ('Goldmine DB/ContHist.DBF', 0);
 $db_Contact1 = dbase_open ('Goldmine DB/Contact1.DBF', 0);
 $db_Contact2 = dbase_open ('Goldmine DB/Contact2.DBF', 0);
 error_reporting(0);
+
 $accountno = array();
 $array_accountno = array();
+$ordenar = array();
+
+
 
 $finalizar_Contact1 = array();
 $finalizar_Contact2 = array();
 
+$Registro = $_POST ["registros"];
+
+
+//Traducir fecha insertada al formato que usa dbase.
 $valoruno = str_replace("/","", $_POST['inicio']);
 $valordos =str_replace("/","",$_POST['fin']);
-
 explode("/",$valoruno);
 explode("/", $valordos);
-
 $primervalor = $valoruno[4].$valoruno[5].$valoruno[6].$valoruno[7].$valoruno[2].$valoruno[3].$valoruno[0].$valoruno[1];
 $segundovalor = $valordos[4].$valordos[5].$valordos[6].$valordos[7].$valordos[2].$valordos[3].$valordos[0].$valordos[1];
 
@@ -31,7 +37,7 @@ $segundovalor = $valordos[4].$valordos[5].$valordos[6].$valordos[7].$valordos[2]
             <td style="vertical-align: top; border-collapse: collapse; border-spacing: 0; padding: 0">
                 <table>  <?php
 
-
+            $ord = 0;
                     ?>  <tr><th style="border: 1px solid black">Contador Propio</th>  <?php
 
                         ?>  <th style="border: 1px solid black">ACCOUNTNO</th>  <?php
@@ -40,8 +46,8 @@ $segundovalor = $valordos[4].$valordos[5].$valordos[6].$valordos[7].$valordos[2]
 
                         ?>  </tr>   <?php
 
-                    for ($i, $num_reg_ContHist = dbase_numrecords ($db_ContHist); $i <= $num_reg_ContHist; $i++) {
-                        $Record_ContHist = dbase_get_record_with_names ($db_ContHist, $i);
+                    for ($i, $num_reg_ContHist = dbase_numrecords ($db_ContHist); $Registro <= $num_reg_ContHist; $Registro++) {
+                        $Record_ContHist = dbase_get_record_with_names ($db_ContHist, $Registro);
 
                         if ($Record_ContHist["ACTVCODE"] == "120") {
                             if ($Record_ContHist["ONDATE"] >= $primervalor && $Record_ContHist ["ONDATE"] <= $segundovalor) {
@@ -50,6 +56,8 @@ $segundovalor = $valordos[4].$valordos[5].$valordos[6].$valordos[7].$valordos[2]
                                     <?php
                                     $Accountno_ContHist = $Record_ContHist ["ACCOUNTNO"];
                                     array_push($array_accountno, $Record_ContHist ["ACCOUNTNO"]);
+                                    $ordenar[]= array('ACCOUNTNO' => $Record_ContHist ["ACCOUNTNO"], 'ONDATE' => $Record_ContHist ["ONDATE"]);
+
                                     explode("-",$Record_ContHist["ONDATE"]);
 
                                     ?>  <td style="border: 1px solid black">    <?php echo $Accountno_ContHist ?>   </td>
@@ -70,6 +78,7 @@ $segundovalor = $valordos[4].$valordos[5].$valordos[6].$valordos[7].$valordos[2]
             </td><?php
             dbase_close($db_ContHist);
             $accountno = array_unique($array_accountno, $SORT_STRING = SORT_REGULAR);
+            
             //CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1
 
             ?>     <td style="vertical-align: top; border-collapse: collapse; border-spacing: 0; padding: 0"><table>  <?php
@@ -140,7 +149,9 @@ $segundovalor = $valordos[4].$valordos[5].$valordos[6].$valordos[7].$valordos[2]
                     ?>  </table></td></table></div>     <?php
 
 dbase_close($db_Contact2);
+?> <br><br><br> <?php
 
+print_r($ordenar);
 ?>
 <style type="text/css">
     table {border-collapse: collapse;}
