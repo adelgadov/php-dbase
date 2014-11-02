@@ -38,7 +38,7 @@ $segundovalor = $valordos[4].$valordos[5].$valordos[6].$valordos[7].$valordos[2]
                 <table>  <?php
 
             $ord = 0;
-                    ?>  <tr><th style="border: 1px solid black">Contador Propio</th>  <?php
+
 
                         ?>  <th style="border: 1px solid black">ACCOUNTNO</th>  <?php
                         ?>  <th style="border: 1px solid black">ACTVCODE</th>   <?php
@@ -51,34 +51,37 @@ $segundovalor = $valordos[4].$valordos[5].$valordos[6].$valordos[7].$valordos[2]
 
                         if ($Record_ContHist["ACTVCODE"] == "120") {
                             if ($Record_ContHist["ONDATE"] >= $primervalor && $Record_ContHist ["ONDATE"] <= $segundovalor) {
-                                ?>  <tr><td style="border: 1px solid black">    <?php echo $primervalor ?></td>
 
-                                    <?php
                                     $Accountno_ContHist = $Record_ContHist ["ACCOUNTNO"];
                                     array_push($array_accountno, $Record_ContHist ["ACCOUNTNO"]);
-                                    $ordenar[]= array('ACCOUNTNO' => $Record_ContHist ["ACCOUNTNO"], 'ONDATE' => $Record_ContHist ["ONDATE"]);
-
-                                    explode("-",$Record_ContHist["ONDATE"]);
-
-                                    ?>  <td style="border: 1px solid black">    <?php echo $Accountno_ContHist ?>   </td>
-                                    <?php
-                                    ?>  <td style="border: 1px solid black">    <?php echo $Record_ContHist["ACTVCODE"] ?>  </td>
-                                    <td style="border: 1px solid black">    <?php echo $Record_ContHist["ONDATE"][6].$Record_ContHist["ONDATE"][7]."/".$Record_ContHist["ONDATE"][4].$Record_ContHist["ONDATE"][5]."/".
-                                            $Record_ContHist["ONDATE"][0].$Record_ContHist["ONDATE"][1].$Record_ContHist["ONDATE"][2].$Record_ContHist["ONDATE"][3] ?>  </td></tr>
+                                    $ordenar[]= array('ACCOUNTNO' => $Record_ContHist ["ACCOUNTNO"],'ACTVCODE' => $Record_ContHist["ACTVCODE"], 'ONDATE' => $Record_ContHist ["ONDATE"]);
 
 
-                            <?php
-                            }
-                            ?>  </tr>   <?php
 
+							}
                         }
                     }
+
+					array_multisort($accountno, SORT_DESC, $dateon, SORT_DESC, $actvcode, SORT_DESC);
+					for ($i = 0; $i < count($ordenar); $i++){
+						explode("-",$ordenar[$i]["ONDATE"]);
+
+
+						?><tr><td style="border: 1px solid black">    <?php echo $ordenar[$i]["ACCOUNTNO"] ?>   </td>
+						<td style="border: 1px solid black">    <?php echo $ordenar[$i]["ACTVCODE"] ?>   </td>
+
+						<td style="border: 1px solid black">    <?php echo $ordenar[$i]["ONDATE"][6].$ordenar[$i]["ONDATE"][7]."/".$ordenar[$i]["ONDATE"][4].$ordenar[$i]["ONDATE"][5]."/".
+								$ordenar[$i]["ONDATE"][0].$ordenar[$i]["ONDATE"][1].$ordenar[$i]["ONDATE"][2].$ordenar[$i]["ONDATE"][3] ?>  </td></tr>
+
+
+					<?php
+					}
 
                     ?></table>
             </td><?php
             dbase_close($db_ContHist);
             $accountno = array_unique($array_accountno, $SORT_STRING = SORT_REGULAR);
-            
+
             //CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1 CONTACT1
 
             ?>     <td style="vertical-align: top; border-collapse: collapse; border-spacing: 0; padding: 0"><table>  <?php
@@ -149,9 +152,7 @@ $segundovalor = $valordos[4].$valordos[5].$valordos[6].$valordos[7].$valordos[2]
                     ?>  </table></td></table></div>     <?php
 
 dbase_close($db_Contact2);
-?> <br><br><br> <?php
 
-print_r($ordenar);
 ?>
 <style type="text/css">
     table {border-collapse: collapse;}
